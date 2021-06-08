@@ -1,17 +1,15 @@
-
-import { styler, value, listen, pointer, spring } from "popmotion";
-
 const ball = document.querySelector(".box");
-const divStyler = styler(ball);
-const ballXY = value({ x: 0, y: 0 }, divStyler.set);
+const divStyler = popmotion.styler(ball);
+const ballXY = popmotion.value({ x: 0, y: 0 }, divStyler.set);
 
-listen(ball, "mousedown touchstart").start(e => {
+popmotion.listen(ball, "mousedown touchstart").start(e => {
   e.preventDefault();
-  pointer(ballXY.get()).start(ballXY);
+  popmotion.pointer(ballXY.get()).start(ballXY);
 });
 
-listen(document, "mouseup").start(() => {
-  spring({
+popmotion.listen(document, "mouseup").start(() => {
+  popmotion
+    .spring({
       from: ballXY.get(),
       velocity: ballXY.getVelocity(),
       to: { x: 0, y: 0 },
